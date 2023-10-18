@@ -1,0 +1,2 @@
+module TypeSkillsHelper
+end
