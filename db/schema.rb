@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_18_204246) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_18_220040) do
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -44,6 +44,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_18_204246) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "type_technologies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "user_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -53,6 +59,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_18_204246) do
   create_table "user_user_types", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_types_id", null: false
+    t.integer "users_id", null: false
+    t.index ["user_types_id"], name: "index_user_user_types_on_user_types_id"
+    t.index ["users_id"], name: "index_user_user_types_on_users_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -62,14 +72,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_18_204246) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "social_links_id", null: false
-    t.integer "user_types_id", null: false
-    t.index ["social_links_id"], name: "index_users_on_social_links_id"
-    t.index ["user_types_id"], name: "index_users_on_user_types_id"
   end
 
   add_foreign_key "projects", "users", column: "users_id"
   add_foreign_key "skills", "type_skills", column: "type_skills_id"
-  add_foreign_key "users", "social_links", column: "social_links_id"
-  add_foreign_key "users", "user_types", column: "user_types_id"
+  add_foreign_key "user_user_types", "user_types", column: "user_types_id"
+  add_foreign_key "user_user_types", "users", column: "users_id"
 end
