@@ -65,6 +65,6 @@ class SkillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def skill_params
-      params.fetch(:skill, {})
+      params.require(:skill).permit(:description)
     end
 end

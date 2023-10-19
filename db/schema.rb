@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_18_220040) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_19_154002) do
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -25,15 +25,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_18_220040) do
   end
 
   create_table "skills", force: :cascade do |t|
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "type_skills_id", null: false
-    t.index ["type_skills_id"], name: "index_skills_on_type_skills_id"
   end
 
   create_table "social_links", force: :cascade do |t|
     t.string "url"
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "technologies", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -46,6 +50,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_18_220040) do
 
   create_table "type_technologies", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_skills", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -75,7 +84,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_18_220040) do
   end
 
   add_foreign_key "projects", "users", column: "users_id"
-  add_foreign_key "skills", "type_skills", column: "type_skills_id"
   add_foreign_key "user_user_types", "user_types", column: "user_types_id"
   add_foreign_key "user_user_types", "users", column: "users_id"
 end

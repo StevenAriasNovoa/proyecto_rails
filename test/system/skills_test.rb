@@ -14,6 +14,7 @@ class SkillsTest < ApplicationSystemTestCase
     visit skills_url
     click_on "New skill"
 
+    fill_in "Description", with: @skill.description
     click_on "Create Skill"
 
     assert_text "Skill was successfully created"
@@ -24,6 +25,7 @@ class SkillsTest < ApplicationSystemTestCase
     visit skill_url(@skill)
     click_on "Edit this skill", match: :first
 
+    fill_in "Description", with: @skill.description
     click_on "Update Skill"
 
     assert_text "Skill was successfully updated"
