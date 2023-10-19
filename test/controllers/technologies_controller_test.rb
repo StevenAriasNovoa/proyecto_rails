@@ -17,7 +17,7 @@ class TechnologiesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create technology" do
     assert_difference("Technology.count") do
-      post technologies_url, params: { technology: {  } }
+      post technologies_url, params: { technology: { name: @technology.name } }
     end
 
     assert_redirected_to technology_url(Technology.last)
@@ -34,7 +34,7 @@ class TechnologiesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update technology" do
-    patch technology_url(@technology), params: { technology: {  } }
+    patch technology_url(@technology), params: { technology: { name: @technology.name } }
     assert_redirected_to technology_url(@technology)
   end
 

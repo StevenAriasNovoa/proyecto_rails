@@ -14,6 +14,7 @@ class TechnologiesTest < ApplicationSystemTestCase
     visit technologies_url
     click_on "New technology"
 
+    fill_in "Name", with: @technology.name
     click_on "Create Technology"
 
     assert_text "Technology was successfully created"
@@ -24,6 +25,7 @@ class TechnologiesTest < ApplicationSystemTestCase
     visit technology_url(@technology)
     click_on "Edit this technology", match: :first
 
+    fill_in "Name", with: @technology.name
     click_on "Update Technology"
 
     assert_text "Technology was successfully updated"
