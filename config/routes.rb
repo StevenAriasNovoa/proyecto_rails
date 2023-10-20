@@ -6,12 +6,15 @@ Rails.application.routes.draw do
   root "home#about"
 
   devise_for :users
-  resources :skill
+  resources :projects
+  resources :skills
   resources :social_links
   resources :technologies
   resources :suer_skills
   resources :home
 
-  
+  devise_scope :user do
+    get "/users/sign_out", as: "sign_out", to: "devise/sessions#destroy"
+  end
 
 end
