@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_20_045549) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_23_202428) do
+  create_table "posts", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "project_technologies", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -34,7 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_20_045549) do
   end
 
   create_table "skills", force: :cascade do |t|
-    t.string "description"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "type_skills_id", null: false
@@ -42,8 +49,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_20_045549) do
   end
 
   create_table "social_links", force: :cascade do |t|
+    t.string "name_link"
     t.string "url"
-    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -52,8 +59,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_20_045549) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "type_technologies_id", null: false
-    t.index ["type_technologies_id"], name: "index_technologies_on_type_technologies_id"
   end
 
   create_table "type_skills", force: :cascade do |t|
@@ -66,6 +71,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_20_045549) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "technologies_id", null: false
+    t.index ["technologies_id"], name: "index_type_technologies_on_technologies_id"
   end
 
   create_table "user_skills", force: :cascade do |t|
@@ -93,26 +100,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_20_045549) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password"
-    t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "name_users"
+    t.string "description_users"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "role"
+    t.integer "social_links_id"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["social_links_id"], name: "index_users_on_social_links_id"
   end
 
   add_foreign_key "project_technologies", "projects", column: "projects_id"
   add_foreign_key "project_technologies", "technologies", column: "technologies_id"
   add_foreign_key "projects", "users", column: "users_id"
   add_foreign_key "skills", "type_skills", column: "type_skills_id"
-  add_foreign_key "technologies", "type_technologies", column: "type_technologies_id"
+  add_foreign_key "type_technologies", "technologies", column: "technologies_id"
   add_foreign_key "user_skills", "skills", column: "skills_id"
   add_foreign_key "user_skills", "users", column: "users_id"
   add_foreign_key "user_user_types", "user_types", column: "user_types_id"
   add_foreign_key "user_user_types", "users", column: "users_id"
+  add_foreign_key "users", "social_links", column: "social_links_id"
 end

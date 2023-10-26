@@ -1,0 +1,3 @@
+class ContactFromController < ApplicationController
+    
+end

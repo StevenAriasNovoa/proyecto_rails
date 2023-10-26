@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ProyectoRail</title>
+    <title> Digital potafoio</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
+
   <body>
-  <%= yield %>
+
+  <nav class="nav">
+  <a class="nav-link active" aria-current="page" href="/projects">projects</a>
+  <a class="nav-link" href="/skills">skills</a>
+  <a class="nav-link" href="/technologies">technologies</a>
+  <a class="nav-link" href="/admin/skills">admin skills </a>
+  <a class="nav-link" href="/admin/technologies">adm technologies </a>
+  <a class="nav-link" href="/about">admin skills type </a>
+  <a class="nav-link" href="/about"> </a>
+  <a class="nav-link" href="/about">About users normales</a>
+  <a class="nav-link" href="/admin/about">About admin</a>
+
+  </nav>
+    <%= yield %>
   </body>
 </html>

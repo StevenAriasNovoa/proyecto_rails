@@ -1,0 +1,9 @@
+<h1>Pages#home</h1>
+<p>Find me in app/views/pages/home.html.erb</p>
+
+<% if current_user %>
+<% current_user.role %>
+<%= link_to "logout",destroy_user_session_path, method: :delete, data: { turbo_method: :delete}  %>
+<% else %>
+<%= link_to "Login",new_user_session_path %>
+<% end %>
